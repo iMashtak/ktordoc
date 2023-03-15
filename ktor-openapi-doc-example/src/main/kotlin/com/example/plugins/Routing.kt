@@ -1,6 +1,6 @@
 package com.example.plugins
 
-import com.example.openapigen.openapi
+import io.github.imashtak.ktor.openapi.doc.openapi
 import io.ktor.server.routing.*
 import io.ktor.server.response.*
 import io.ktor.server.application.*

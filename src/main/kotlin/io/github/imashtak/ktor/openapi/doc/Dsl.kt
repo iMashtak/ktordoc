@@ -1,4 +1,4 @@
-package com.example.openapigen
+package io.github.imashtak.ktor.openapi.doc
 
 import io.swagger.v3.core.converter.AnnotatedType
 import io.swagger.v3.core.converter.ModelConverters

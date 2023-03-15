@@ -1,4 +1,4 @@
-package com.example.openapigen
+package io.github.imashtak.ktor.openapi.doc
 
 import io.ktor.http.*
 import io.ktor.server.routing.*
@@ -15,10 +15,10 @@ fun Route.openapi(op: OperationModel.() -> Unit, block: Route.() -> Route) {
     route.attributes.put(OperationModelAttribute, model)
 }
 
-val OperationModelAttribute = AttributeKey<OperationModel>("openapi-route-documentation")
+val OperationModelAttribute = AttributeKey<OperationModel>("io.github.imashtak.ktor.openapi.doc.openapi-route-documentation")
 
 fun Routing.generateOpenAPI(
-    swaggerFile: String = "openapi/documentation.yaml",
+    swaggerFile: String = "io.github.imashtak.ktor.openapi.doc.openapi/documentation.yaml",
     customizer: OpenAPIModel.() -> Unit = {}
 ) {
     val openapiModel = OpenAPIModel().apply(customizer)
