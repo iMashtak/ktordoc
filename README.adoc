@@ -1,5 +1,0 @@
-= Ktor OpenAPI Document Generator
-
-Ktor extension which generates OpenAPI document.
-
-

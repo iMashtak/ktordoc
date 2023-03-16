@@ -11,6 +11,12 @@ fun Application.configureRouting() {
         route("/v1") {
             openapi({
                 summary("hello world")
+                response("200") {
+                    mediaType("application/json") {
+                        description("")
+                        schema(String::class)
+                    }
+                }
             }) {
                 get("/") {
                     call.respondText("Hello World!")

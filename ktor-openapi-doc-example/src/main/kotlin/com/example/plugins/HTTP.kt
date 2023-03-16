@@ -15,6 +15,10 @@ fun Application.configureHTTP() {
             server {
                 url("http://127.0.0.1:8080")
             }
+            security("Bearer")
+            securitySchema("Bearer") {
+                basic()
+            }
         }
         swaggerUI(path = "openapi")
     }
