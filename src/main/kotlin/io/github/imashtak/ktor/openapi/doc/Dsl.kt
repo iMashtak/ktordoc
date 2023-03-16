@@ -16,8 +16,7 @@ import io.swagger.v3.oas.models.parameters.Parameter
 import io.swagger.v3.oas.models.parameters.RequestBody
 import io.swagger.v3.oas.models.responses.ApiResponse
 import io.swagger.v3.oas.models.responses.ApiResponses
-import io.swagger.v3.oas.models.security.SecurityRequirement
-import io.swagger.v3.oas.models.security.SecurityScheme
+import io.swagger.v3.oas.models.security.*
 import io.swagger.v3.oas.models.servers.Server
 import io.swagger.v3.oas.models.tags.Tag
 import kotlin.reflect.KClass
@@ -149,14 +148,19 @@ class ExternalDocsModel {
 class SecuritySchemaModel {
     val securityScheme: SecurityScheme = SecurityScheme()
 
+    fun description(x: String) {
+        securityScheme.description(x)
+    }
+
     fun basic() {
         securityScheme.type(SecurityScheme.Type.HTTP)
         securityScheme.scheme("basic")
     }
 
-    fun bearer() {
+    fun bearer(format: String? = null) {
         securityScheme.type(SecurityScheme.Type.HTTP)
         securityScheme.scheme("bearer")
+        securityScheme.bearerFormat(format)
     }
 
     fun apiKey(`in`: SecurityScheme.In, name: String) {
@@ -168,6 +172,57 @@ class SecuritySchemaModel {
     fun openIdConnect(openIdConnectUrl: String) {
         securityScheme.type(SecurityScheme.Type.OPENIDCONNECT)
         securityScheme.openIdConnectUrl(openIdConnectUrl)
+    }
+
+    fun oauth(block: OAuthFlowsModel.() -> Unit) {
+        securityScheme.type(SecurityScheme.Type.OAUTH2)
+        securityScheme.flows(OAuthFlowsModel().apply(block).flows)
+    }
+}
+
+class OAuthFlowsModel {
+    val flows: OAuthFlows = OAuthFlows()
+
+    fun implicit(block: OAuthFlowModel.() -> Unit) {
+        flows.implicit(OAuthFlowModel().apply(block).flow)
+    }
+
+    fun password(block: OAuthFlowModel.() -> Unit) {
+        flows.password(OAuthFlowModel().apply(block).flow)
+    }
+
+    fun clientCredentials(block: OAuthFlowModel.() -> Unit) {
+        flows.clientCredentials(OAuthFlowModel().apply(block).flow)
+    }
+
+    fun authorizationCode(block: OAuthFlowModel.() -> Unit) {
+        flows.authorizationCode(OAuthFlowModel().apply(block).flow)
+    }
+}
+
+class OAuthFlowModel {
+    val flow: OAuthFlow = OAuthFlow()
+
+    fun authorizationUrl(x: String) {
+        flow.authorizationUrl(x)
+    }
+
+    fun tokenUrl(x: String) {
+        flow.tokenUrl(x)
+    }
+
+    fun refreshUrl(x: String) {
+        flow.refreshUrl(x)
+    }
+
+    fun scopes(x: Map<String, String>) {
+        if (flow.scopes == null) flow.scopes(Scopes())
+        flow.scopes.putAll(x)
+    }
+
+    fun scope(key: String, value: String) {
+        if (flow.scopes == null) flow.scopes(Scopes())
+        flow.scopes[key] = value
     }
 }
 
