@@ -10,7 +10,7 @@
     <packaging>jar</packaging>
 
     <name>Ktor OpenAPI Document Generator</name>
-    <description>Extension for Ktor framework which generates OpenAPI document</description>
+    <description>Ktor extension which generates OpenAPI document</description>
     <url>https://github.com/iMashtak/ktor-openapi-doc</url>
 
     <licenses>

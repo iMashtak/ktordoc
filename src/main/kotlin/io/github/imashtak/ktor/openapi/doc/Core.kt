@@ -15,10 +15,10 @@ fun Route.openapi(op: OperationModel.() -> Unit, block: Route.() -> Route) {
     route.attributes.put(OperationModelAttribute, model)
 }
 
-val OperationModelAttribute = AttributeKey<OperationModel>("io.github.imashtak.ktor.openapi.doc.openapi-route-documentation")
+val OperationModelAttribute = AttributeKey<OperationModel>("openapi-operation-doc-route")
 
 fun Routing.generateOpenAPI(
-    swaggerFile: String = "io.github.imashtak.ktor.openapi.doc.openapi/documentation.yaml",
+    swaggerFile: String = "openapi/documentation.yaml",
     customizer: OpenAPIModel.() -> Unit = {}
 ) {
     val openapiModel = OpenAPIModel().apply(customizer)

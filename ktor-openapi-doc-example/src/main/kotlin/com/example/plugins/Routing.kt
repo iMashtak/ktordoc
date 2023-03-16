@@ -8,11 +8,13 @@ import kotlinx.serialization.Serializable
 
 fun Application.configureRouting() {
     routing {
-        openapi({
-            summary("hello world")
-        }) {
-            get("/") {
-                call.respondText("Hello World!")
+        route("/v1") {
+            openapi({
+                summary("hello world")
+            }) {
+                get("/") {
+                    call.respondText("Hello World!")
+                }
             }
         }
         openapi({

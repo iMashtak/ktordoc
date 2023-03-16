@@ -3,6 +3,7 @@ package io.github.imashtak.ktor.openapi.doc
 import io.swagger.v3.core.converter.AnnotatedType
 import io.swagger.v3.core.converter.ModelConverters
 import io.swagger.v3.oas.models.Components
+import io.swagger.v3.oas.models.ExternalDocumentation
 import io.swagger.v3.oas.models.OpenAPI
 import io.swagger.v3.oas.models.Operation
 import io.swagger.v3.oas.models.info.Contact
@@ -15,7 +16,10 @@ import io.swagger.v3.oas.models.parameters.Parameter
 import io.swagger.v3.oas.models.parameters.RequestBody
 import io.swagger.v3.oas.models.responses.ApiResponse
 import io.swagger.v3.oas.models.responses.ApiResponses
+import io.swagger.v3.oas.models.security.SecurityRequirement
+import io.swagger.v3.oas.models.security.SecurityScheme
 import io.swagger.v3.oas.models.servers.Server
+import io.swagger.v3.oas.models.tags.Tag
 import kotlin.reflect.KClass
 
 class OpenAPIModel {
@@ -32,6 +36,21 @@ class OpenAPIModel {
 
     fun server(block: ServerModel.() -> Unit) {
         openapi.addServersItem(ServerModel().apply(block).server)
+    }
+
+    fun tag(block: TagModel.() -> Unit) {
+        if (openapi.tags == null) openapi.tags = ArrayList()
+        openapi.tags.add(TagModel().apply(block).tag)
+    }
+
+    fun securitySchema(key: String, block: SecuritySchemaModel.() -> Unit) {
+        openapi.components.addSecuritySchemes(key, SecuritySchemaModel().apply(block).securityScheme)
+    }
+
+    fun security(key: String, values: List<String> = listOf()) {
+        val item = SecurityRequirement()
+        item[key] = values
+        openapi.addSecurityItem(item)
     }
 }
 
@@ -99,6 +118,59 @@ class ServerModel {
     }
 }
 
+class TagModel {
+    val tag: Tag = Tag()
+
+    fun name(x: String) {
+        tag.name(x)
+    }
+
+    fun description(x: String) {
+        tag.description(x)
+    }
+
+    fun externalDocs(block: ExternalDocsModel.() -> Unit) {
+        tag.externalDocs(ExternalDocsModel().apply(block).externalDocs)
+    }
+}
+
+class ExternalDocsModel {
+    val externalDocs: ExternalDocumentation = ExternalDocumentation()
+
+    fun description(x: String) {
+        externalDocs.description(x)
+    }
+
+    fun url(x: String) {
+        externalDocs.url(x)
+    }
+}
+
+class SecuritySchemaModel {
+    val securityScheme: SecurityScheme = SecurityScheme()
+
+    fun basic() {
+        securityScheme.type(SecurityScheme.Type.HTTP)
+        securityScheme.scheme("basic")
+    }
+
+    fun bearer() {
+        securityScheme.type(SecurityScheme.Type.HTTP)
+        securityScheme.scheme("bearer")
+    }
+
+    fun apiKey(`in`: SecurityScheme.In, name: String) {
+        securityScheme.type(SecurityScheme.Type.APIKEY)
+        securityScheme.`in`(`in`)
+        securityScheme.name(name)
+    }
+
+    fun openIdConnect(openIdConnectUrl: String) {
+        securityScheme.type(SecurityScheme.Type.OPENIDCONNECT)
+        securityScheme.openIdConnectUrl(openIdConnectUrl)
+    }
+}
+
 private val components = Components()
 
 class OperationModel {
@@ -135,6 +207,20 @@ class OperationModel {
         val apiResponses = operation.responses
         val x = ApiResponseModel().apply(block)
         apiResponses.addApiResponse(code, x.apiResponse)
+    }
+
+    fun externalDocs(block: ExternalDocsModel.() -> Unit) {
+        operation.externalDocs(ExternalDocsModel().apply(block).externalDocs)
+    }
+
+    fun deprecated(x: Boolean) {
+        operation.deprecated(x)
+    }
+
+    fun security(key: String, values: List<String> = listOf()) {
+        val item = SecurityRequirement()
+        item[key] = values
+        operation.addSecurityItem(item)
     }
 }
 
