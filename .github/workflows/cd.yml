@@ -22,4 +22,4 @@ jobs:
         env:
           MAVEN_SETTINGS_XML: ${{ secrets.MAVEN_SETTINGS_XML }}
       - name: "Maven: Deploy"
-        run: mvn --settings=settings.xml -DskipTests clean package verify deploy
+        run: mvn --settings=settings.xml -DskipTests clean dokka:dokka package verify deploy
