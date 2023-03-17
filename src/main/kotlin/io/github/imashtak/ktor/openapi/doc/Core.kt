@@ -12,6 +12,9 @@ import io.swagger.v3.oas.models.PathItem
 import io.swagger.v3.oas.models.parameters.Parameter
 import java.io.File
 
+/**
+ * Attaches additional OpenAPI information to the wrapped route.
+ */
 fun Route.openapi(op: OperationModel.() -> Unit, block: Route.() -> Route) {
     val route = block.invoke(this)
     val model = OperationModel().apply(op)
@@ -20,6 +23,9 @@ fun Route.openapi(op: OperationModel.() -> Unit, block: Route.() -> Route) {
 
 val OperationModelAttribute = AttributeKey<OperationModel>("openapi-operation-doc-route")
 
+/**
+ * Generates OpenAPI specification based on defined routes.
+ */
 fun Routing.generateOpenAPI(
     swaggerFile: String = "openapi/documentation.yaml",
     customizer: OpenAPIModel.() -> Unit = {}
