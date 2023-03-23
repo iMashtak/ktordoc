@@ -38,12 +38,12 @@ fun Application.configureOpenAPI() {
 }
 ```
 
-Then wrap endpoints with `openapi` function like this:
+Then wrap endpoints with `api` function like this:
 
 ```kotlin
 fun Application.configureRouting() {
     routing {
-        openapi({
+        api({
             summary("hello world")
             response("200") {
                 mediaType("application/json") {
@@ -70,7 +70,7 @@ fun Application.module() {
 
 So now, on app starting, the file `openapi/documentation.yaml` will be created with complete OpenAPI spec of defined routes. Note that routes which are not wrapped with `openapi` function will not be shown in spec.
 
-### Integrations
+## Integrations
 
 It is easy to integrate with [SwaggerUI](https://ktor.io/docs/swagger-ui.html) or [OpenAPI](https://ktor.io/docs/openapi.html) plugins:
 
@@ -83,18 +83,77 @@ fun Application.configureOpenAPI() {
 }
 ```
 
-### Complex Routing
+## Complex Routing
 
-There is a simple rule - `openapi` function must wrap leaf "node" of routes "tree". In other words you have to place `openapi` in the following manner:
+There is a simple rule - `api` function must wrap "leaf node" of routes "tree". In other words you have to place `api` in the following manner:
 
 ```kotlin
 fun Application.configureRouting() {
     routing {
         route("/v1") {
-            openapi({}) {
+            api({}) {
                 get("/") {
                     call.respondText("Hello World!")
                 }
+            }
+        }
+    }
+}
+```
+
+## Auto parameters discovery
+
+Cause `api` wraps "leaf node" of routes, it is possible to retrieve some more information from them. For example, path and query parameters of route. Consider the following code:
+
+```kotlin
+fun Application.configureRouting() {
+    routing {
+        api({}) {
+            get("/some/{id}") {
+                call.respondText("Hello World!")
+            }
+        }
+    }
+}
+```
+
+Parameter `id` will automatically be added to OpenAPI specification. It is possible to add some docs:
+
+```kotlin
+fun Application.configureRouting() {
+    routing {
+        api({
+            parameter {
+                name("id")
+                description("description of `id` parameter")
+            }
+        }) {
+            get("/some/{id}") {
+                call.respondText("Hello World!")
+            }
+        }
+    }
+}
+```
+
+Other fields such as `in`, `required` and `schema` will be set automatically (if not set manually).
+
+The same works for query parameters. Example uses [Resources](https://ktor.io/docs/type-safe-routing.html) plugin:
+
+```kotlin
+@Resource("/some")
+class Some(val label: String?)
+
+fun Application.configureRouting() {
+    routing {
+        api({
+            parameter {
+                name("label")
+                description("description of `label` parameter")
+            }
+        }) {
+            get<Some> {
+                call.respondText("Hello World!")
             }
         }
     }

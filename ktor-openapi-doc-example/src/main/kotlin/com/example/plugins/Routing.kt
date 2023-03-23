@@ -1,10 +1,12 @@
 package com.example.plugins
 
-import io.github.imashtak.ktor.openapi.doc.openapi
+import io.github.imashtak.ktor.openapi.doc.api
+import io.ktor.http.*
 import io.ktor.resources.*
 import io.ktor.server.routing.*
 import io.ktor.server.response.*
 import io.ktor.server.application.*
+import io.ktor.server.request.*
 import io.ktor.server.resources.*
 import io.ktor.server.routing.get
 import kotlinx.serialization.Serializable
@@ -23,11 +25,15 @@ data class ExampleNested(
 )
 
 @Resource("/articles")
-class Articles(val sort: String? = null)
+class Articles(val sort: String)
 
 fun Application.configureRouting() {
     routing {
-        openapi({
+        api({
+            parameter {
+                name("sort")
+                description("Info about parameter `sort`")
+            }
             response("200") {
                 mediaType("text/plain") {
                     schema(String::class)
@@ -39,7 +45,7 @@ fun Application.configureRouting() {
             }
         }
         route("/v1") {
-            openapi({
+            api({
                 response("200") {
                     mediaType("application/json") {
                         schema(String::class)
@@ -52,7 +58,7 @@ fun Application.configureRouting() {
                 }
             }
         }
-        openapi({
+        api({
             requestBody {
                 mediaType("application/json") {
                     schema(String::class)
@@ -65,11 +71,12 @@ fun Application.configureRouting() {
                 }
             }
         }) {
-            post("/") {
-                call.respond(Example("hey", 10, ExampleNested("r"), listOf()))
+            post("/x") {
+                val x = call.receiveText()
+                call.respond(Example("hey", 10, ExampleNested(x), listOf()))
             }
         }
-        openapi({
+        api({
             response("200") {
                 mediaType("application/json") {
                     schema(String::class)
