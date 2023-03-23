@@ -68,7 +68,7 @@ fun Application.module() {
 }
 ```
 
-So now, on app starting, the file `openapi/documentation.yaml` will be created with complete OpenAPI spec of defined routes. Note that routes which are not wrapped with `openapi` function will not be shown in spec.
+So now, on app starting, the file `openapi/documentation.yaml` will be created with complete OpenAPI spec of defined routes. Note that routes which are not wrapped with `api` function will not be shown in spec.
 
 ## Integrations
 
