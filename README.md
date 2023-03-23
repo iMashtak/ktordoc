@@ -103,7 +103,7 @@ fun Application.configureRouting() {
 
 ## Auto parameters discovery
 
-Cause `api` wraps "leaf node" of routes, it is possible to retrieve some more information from them. For example, path and query parameters of route. Consider the following code:
+Consider the following code:
 
 ```kotlin
 fun Application.configureRouting() {
@@ -117,7 +117,9 @@ fun Application.configureRouting() {
 }
 ```
 
-Parameter `id` will automatically be added to OpenAPI specification. It is possible to add some docs:
+Parameter `id` will automatically be added to OpenAPI specification as path parameter. Note that from OpenAPI point of view path parameters may be only required, but ktor can work with optional path parameters using syntax `/some/{id?}`. If made so, generated OpenAPI will show `id` parameter as required and there is nothing to do with that. 
+
+It is possible to add some docs to parameter:
 
 ```kotlin
 fun Application.configureRouting() {
