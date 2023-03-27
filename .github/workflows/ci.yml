@@ -18,4 +18,4 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: "Maven: Test"
-        run: mvn -q -Dgpg.skip=true clean install
+        run: cd ./ktordoc-openapi && mvn -q -Dgpg.skip=true clean install && cd ..

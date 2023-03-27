@@ -7,7 +7,7 @@
     </formats>
     <fileSets>
         <fileSet>
-            <directory>./target/dokka</directory>
+            <directory>./README.md</directory>
             <outputDirectory></outputDirectory>
         </fileSet>
     </fileSets>

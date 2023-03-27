@@ -1,4 +1,4 @@
-package io.github.imashtak.ktor.openapi.doc
+package io.github.imashtak.ktordoc.openapi
 
 import io.swagger.v3.core.converter.AnnotatedType
 import io.swagger.v3.core.converter.ModelConverters

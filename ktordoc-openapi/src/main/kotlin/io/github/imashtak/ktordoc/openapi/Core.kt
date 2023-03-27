@@ -1,4 +1,4 @@
-package io.github.imashtak.ktor.openapi.doc
+package io.github.imashtak.ktordoc.openapi
 
 import io.ktor.http.*
 import io.ktor.server.routing.*

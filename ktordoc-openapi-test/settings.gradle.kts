@@ -1,0 +1,1 @@
+rootProject.name = "ktordoc-openapi-test"

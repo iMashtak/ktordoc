@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>ktor-openapi-doc</artifactId>
+    <artifactId>ktordoc-openapi</artifactId>
     <groupId>io.github.imashtak</groupId>
     <version>0.1.0</version>
     <packaging>jar</packaging>
@@ -178,19 +178,6 @@
                                         <descriptor>javadoc-assembly.xml</descriptor>
                                     </descriptors>
                                 </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.jetbrains.dokka</groupId>
-                        <artifactId>dokka-maven-plugin</artifactId>
-                        <version>1.8.10</version>
-                        <executions>
-                            <execution>
-                                <phase>pre-site</phase>
-                                <goals>
-                                    <goal>dokka</goal>
-                                </goals>
                             </execution>
                         </executions>
                     </plugin>

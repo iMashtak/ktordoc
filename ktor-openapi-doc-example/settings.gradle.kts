@@ -1,1 +1,0 @@
-rootProject.name = "ktor-openapi-doc-example"
