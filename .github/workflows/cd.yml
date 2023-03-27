@@ -22,4 +22,4 @@ jobs:
         env:
           MAVEN_SETTINGS_XML: ${{ secrets.MAVEN_SETTINGS_XML }}
       - name: "Maven: Deploy"
-        run: cd ./ktordoc-openapi && mvn -q --settings=settings.xml -DskipTests -P javadoc clean package verify deploy && cd ..
+        run: cd ./ktordoc-openapi && mvn -q --settings=../settings.xml -DskipTests -P javadoc clean package verify deploy && cd ..
