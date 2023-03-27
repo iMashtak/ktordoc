@@ -7,7 +7,7 @@
     </formats>
     <fileSets>
         <fileSet>
-            <directory>./README.md</directory>
+            <directory>docs</directory>
             <outputDirectory></outputDirectory>
         </fileSet>
     </fileSets>
