@@ -31,7 +31,7 @@ dependencies {
     implementation("io.ktor:ktor-server-resources:$ktor_version")
     implementation("io.ktor:ktor-server-content-negotiation:$ktor_version")
 
-    implementation("io.github.imashtak:ktordoc-openapi:0.1.0")
+    implementation("io.github.imashtak:ktordoc-openapi:0.2.0")
 //    implementation("io.ktor:ktor-server-caching-headers-jvm:$ktor_version")
 
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
