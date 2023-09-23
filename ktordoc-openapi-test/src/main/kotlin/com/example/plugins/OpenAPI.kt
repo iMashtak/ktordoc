@@ -7,7 +7,7 @@ import io.ktor.server.application.*
 
 fun Application.configureOpenAPI() {
     routing {
-        generateOpenAPI() {
+        generateOpenAPI(swaggerFile = "ktordoc-openapi-test/openapi.yaml") {
             info {
                 title("Example API")
                 version("1.0.0")
@@ -20,6 +20,6 @@ fun Application.configureOpenAPI() {
                 basic()
             }
         }
-        swaggerUI(path = "openapi")
+        swaggerUI(swaggerFile = "ktordoc-openapi-test/openapi.yaml", path = "openapi")
     }
 }

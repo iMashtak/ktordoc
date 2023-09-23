@@ -3,9 +3,9 @@ val kotlin_version: String by project
 val logback_version: String by project
 
 plugins {
-    kotlin("jvm") version "1.8.10"
-    id("io.ktor.plugin") version "2.2.4"
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.8.10"
+    kotlin("jvm") version "1.8.20"
+    id("io.ktor.plugin") version "2.3.4"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.8.20"
 }
 
 group = "com.example"
@@ -31,7 +31,7 @@ dependencies {
     implementation("io.ktor:ktor-server-resources:$ktor_version")
     implementation("io.ktor:ktor-server-content-negotiation:$ktor_version")
 
-    implementation("io.github.imashtak:ktordoc-openapi:0.2.0")
+    implementation("io.github.imashtak:ktordoc-openapi:0.3.0")
 //    implementation("io.ktor:ktor-server-caching-headers-jvm:$ktor_version")
 
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")

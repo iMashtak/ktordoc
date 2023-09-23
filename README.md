@@ -10,14 +10,14 @@ Maven dependency:
 <dependency>
     <groupId>io.github.imashtak</groupId>
     <artifactId>ktordoc-openapi</artifactId>
-    <version>0.2.0</version>
+    <version>0.3.0</version>
 </dependency>
 ```
 
 Gradle dependency:
 
 ```kotlin
-implementation("io.github.imashtak:ktordoc-openapi:0.2.0")
+implementation("io.github.imashtak:ktordoc-openapi:0.3.0")
 ```
 
 Use `generateOpenAPI` function to declare high level settings for OpenAPI document:
